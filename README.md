@@ -1,4 +1,4 @@
-# Deterministic-Optimisation-Algorithms
+# Deterministic Optimisation Algorithms
 An example of two optimisation algorithms (conjugate gradient and levenberg marquardt) applied to the rosenbrook function.
 
 Both algorithms start at the same initial point `(-1.5, -1)` and exit when the solution converges to an error smaller than `1e-8`. 
