@@ -44,7 +44,7 @@ double * cgd(
 		beta = 0.0; tmp = 0.0;
 		for (i = 0; i < n_vars; i++) {
 			beta += grad[i] * d[i];
-        	tmp += d[i] * d[i];
+			tmp += d[i] * d[i];
 		}
 		if (iters > 1) beta /= tmp; // skip first iteration
 
@@ -52,8 +52,7 @@ double * cgd(
 			d[i] = -grad[i] + beta * d[i];
 
 		// backtracking strategy to compute alpha
-		alpha = 1.0;
-		tmp = 0.0;
+		alpha = 1.0; tmp = 0.0;
 		for (i = 0; i < n_vars; i++) {
 			tmp += grad[i] * d[i];
 			x_guess[i] = x[i] + alpha * d[i];

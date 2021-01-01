@@ -50,7 +50,7 @@ double * lm(
 	LM = (double *) malloc(n_vars * n_vars * sizeof(double));	// LM matrix
 	LM_inv = (double *) malloc(n_vars * n_vars * sizeof(double));	// inverse LM matrix
 
-	double fx, fx_tmp, step, lambda = 0.005;
+	double fx, fx_tmp, lambda = 0.005;
 
 	int i, j, iters = 0;
 	for (i = 0; i < n_vars; i++) x[i] = x0[i];
@@ -65,19 +65,16 @@ double * lm(
 		// compute LM matrix (using the fact that H is symetric)
 		for (i = 0; i < n_vars; i++) {
 			LM[i * n_vars + i] = H[i * n_vars + i] + lambda;
-			for (j = i + 1; j < n_vars; j++) {
+			for (j = i + 1; j < n_vars; j++)
 				LM[i * n_vars + j] = LM[j * n_vars + i] = H[i * n_vars + j];
-			}
 		}
 
 		inv_mat2(LM, LM_inv);
 
 		// step
-		for (i = 0; i < n_vars; i++) {
-			step = 0.0;
-			for (j = 0; j < n_vars; j++) step += LM_inv[i*n_vars + j] * grad[j];
-			x[i] -= step;
-		}
+		for (i = 0; i < n_vars; i++)
+			for (j = 0; j < n_vars; j++) 
+				x[i] -= LM_inv[i*n_vars + j] * grad[j];
 
 		fx_tmp = f(x);
 		if (fx_tmp < fx) lambda /= 2.0;
